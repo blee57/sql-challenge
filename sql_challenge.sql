@@ -6,17 +6,8 @@ DROP TABLE salaries
 DROP TABLE titles
 
 CREATE TABLE departments (
- id SERIAL Primary Key,  
- dept_no VARCHAR(20) NOT NULL,
+ dept_no VARCHAR(20)  Primary Key NOT NULL,
  dept_name text NOT NULL);
-
-CREATE TABLE dept_emp (
- emp_no int, 
- dept_no VARCHAR(20));
- 
-CREATE TABLE dept_manager (
- dept_no VARCHAR(20),
- emp_no int);
 
 CREATE TABLE employees (
  emp_no int Primary Key,
@@ -26,14 +17,26 @@ CREATE TABLE employees (
  last_name VARCHAR(30),
  sex VARCHAR (5),
  hire_date date);
+ 
+CREATE TABLE dept_emp (
+ emp_no int, 
+ dept_no VARCHAR(20));
+
+ 
+CREATE TABLE dept_manager (
+ dept_no VARCHAR(20),
+ emp_no int,
+ FOREIGN KEY (emp_no) REFERENCES employees(emp_no),
+ FOREIGN KEY (dept_no) REFERENCES departments(dept_no))
 
 CREATE TABLE salaries (
  emp_no int,
- salary int);
+ salary int,
+ FOREIGN KEY (emp_no) REFERENCES employees(emp_no));
 
 CREATE TABLE titles (
  title_id VARCHAR(20),
- title VARCHAR (30))
+ title VARCHAR (30));
 
 SELECT * FROM departments
 SELECT * FROM dept_emp
